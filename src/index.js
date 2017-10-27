@@ -3,7 +3,6 @@ import fs from "fs";
 
 import "babel-polyfill";
 
-import _ from "lodash";
 import pino from "pino";
 import Telegraf from "telegraf";
 
@@ -36,10 +35,9 @@ const main = async () => {
     }),
   );
 
-  const help = _.flatten(
-    plugins.filter(plugin => plugin && plugin.help).map(plugin => plugin.help),
-  )
-    .sort()
+  const help = plugins
+    .filter(plugin => plugin && plugin.help)
+    .map(plugin => plugin.help)
     .join("\n");
 
   app.hears("'help", ctx => ctx.reply(help));

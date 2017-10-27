@@ -9,6 +9,6 @@ export default app => {
   });
 
   return {
-    help: ["'commit - https://whatthecommit.com/"],
+    help: "'commit - https://whatthecommit.com/",
   };
 };

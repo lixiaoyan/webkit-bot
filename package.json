@@ -18,7 +18,6 @@
     "axios": "^0.17.0",
     "babel-polyfill": "^6.26.0",
     "linkify-it": "^2.0.3",
-    "lodash": "^4.17.4",
     "pino": "^4.8.1",
     "puppeteer": "^0.12.0",
     "telegraf": "^3.14.0",
