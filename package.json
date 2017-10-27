@@ -1,0 +1,34 @@
+{
+  "name": "webkit-bot",
+  "private": true,
+  "scripts": {
+    "start": "babel-node ./src/index.js",
+    "test": "npm run lint",
+    "lint": "prettier --list-different \"./**/*.js\"",
+    "format": "prettier --write \"./**/*.js\"",
+    "precommit": "lint-staged"
+  },
+  "lint-staged": {
+    "*.js": [
+      "prettier --write",
+      "git add"
+    ]
+  },
+  "dependencies": {
+    "axios": "^0.17.0",
+    "babel-polyfill": "^6.26.0",
+    "linkify-it": "^2.0.3",
+    "lodash": "^4.17.4",
+    "pino": "^4.8.1",
+    "puppeteer": "^0.12.0",
+    "telegraf": "^3.14.0",
+    "tlds": "^1.199.0"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-preset-env": "^1.6.1",
+    "husky": "^0.14.3",
+    "lint-staged": "^4.3.0",
+    "prettier": "^1.7.4"
+  }
+}
