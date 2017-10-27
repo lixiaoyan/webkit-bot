@@ -48,14 +48,7 @@ export default async (app, logger) => {
         await page.close();
       }
 
-      await ctx.replyWithPhoto(
-        {
-          source: screenshot,
-        },
-        {
-          caption: title,
-        },
-      );
+      await ctx.replyWithPhoto({ source: screenshot }, { caption: title });
     }),
   );
 
