@@ -38,7 +38,7 @@ export default app => {
           .map(([key, name]) => `<b>${escape(name)}</b>\n${escape(info[key])}`)
           .filter(Boolean),
       ].join("\n"),
-      { parse_mode: "HTML" },
+      { parse_mode: "HTML", disable_web_page_preview: true },
     );
   });
 };
