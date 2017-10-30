@@ -22,8 +22,9 @@ export default app => {
     } catch (err) {
       if (err.response.status === 404) {
         await ctx.reply("Package not found.");
+        return;
       }
-      return;
+      throw err;
     }
 
     const link = `https://www.npmjs.com/package/${encodeURIComponent(
