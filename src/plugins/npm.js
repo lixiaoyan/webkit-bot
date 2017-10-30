@@ -33,7 +33,7 @@ export default app => {
     await ctx.reply(
       [
         `<b>npm</b>: <a href="${escape(link)}">${escape(info.name)}</a>`,
-        "",
+        "┄┄",
         ...Object.entries(META)
           .map(([key, name]) => `<b>${escape(name)}</b>\n${escape(info[key])}`)
           .filter(Boolean),
@@ -41,4 +41,8 @@ export default app => {
       { parse_mode: "HTML", disable_web_page_preview: true },
     );
   });
+
+  return {
+    help: "<b>'npm &lt;package&gt;</b> - show package info",
+  };
 };
