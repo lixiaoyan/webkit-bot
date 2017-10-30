@@ -31,7 +31,7 @@ export default app => {
 
     await ctx.reply(
       [
-        `<b>npm</b>: <a href="${escape(link)}">${escape(info.name)}</a>`,
+        `<b>npm</b> › <a href="${escape(link)}">${escape(info.name)}</a>`,
         "┄┄",
         ...Object.entries(META)
           .map(([key, name]) => `<b>${escape(name)}</b>\n${escape(info[key])}`)
@@ -42,6 +42,6 @@ export default app => {
   });
 
   return {
-    help: "<b>'npm &lt;package&gt;</b> - show package info",
+    help: "<b>'npm &lt;package&gt;</b> › show package info",
   };
 };

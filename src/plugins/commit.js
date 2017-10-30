@@ -9,6 +9,6 @@ export default app => {
   });
 
   return {
-    help: "<b>'commit</b> - random commit message",
+    help: "<b>'commit</b> › random commit message",
   };
 };
