@@ -9,8 +9,6 @@ export default app => {
     homepage: "homepage",
   };
 
-  const getLink = name => `https://www.npmjs.com/package/${name}`;
-
   app.hears(/^'npm /, async ctx => {
     const name = ctx.message.text.split(/\s+/, 2)[1];
 
@@ -32,9 +30,7 @@ export default app => {
 
     await ctx.reply(
       [
-        `<b>npm</b> › <a href="${escape(getLink(info.name))}">${escape(
-          info.name,
-        )}</a>`,
+        `<b>npm</b> › <a href="${escape(link)}">${escape(info.name)}</a>`,
         "┄┄",
         ...Object.entries(META)
           .map(([path, name]) => {
@@ -68,9 +64,7 @@ export default app => {
         "┄┄",
         ...result.objects.map(
           item =>
-            `<a href="${escape(getLink(item.package.name))}">${escape(
-              item.package.name,
-            )}</a>` +
+            `<b>${escape(item.package.name)}</b>` +
             (item.package.description
               ? ` › ${escape(item.package.description)}`
               : ""),
