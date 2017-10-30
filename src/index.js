@@ -8,7 +8,7 @@ import Telegraf from "telegraf";
 
 const TOKEN = process.env.TELEGRAM_BOT_TOKEN;
 const CHAT_LIST = process.env.TELEGRAM_CHAT_LIST.split(",").map(Number);
-const PLUGINS = ["screenshot", "ping", "commit"];
+const PLUGINS = ["screenshot", "ping", "commit", "npm"];
 
 const logger = pino();
 if (process.env.NODE_ENV === "production") {
