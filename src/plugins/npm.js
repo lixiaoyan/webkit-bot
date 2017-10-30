@@ -17,7 +17,7 @@ export default app => {
     let info;
     try {
       info = (await axios.get(
-        `https://registry.npmjs.org/${encodeURIComponent(name)}/latest`,
+        `https://registry.npmjs.org/${name.replace(/\//g, "%2F")}/latest`,
       )).data;
     } catch (err) {
       if (err.response.status === 404) {
@@ -27,9 +27,7 @@ export default app => {
       throw err;
     }
 
-    const link = `https://www.npmjs.com/package/${encodeURIComponent(
-      info.name,
-    )}`;
+    const link = `https://www.npmjs.com/package/${info.name}`;
 
     await ctx.reply(
       [
