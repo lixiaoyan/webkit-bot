@@ -1,9 +1,10 @@
+import _ from "lodash";
 import escape from "escape-html";
 import axios from "axios";
 
 export default app => {
   const META = {
-    version: "version",
+    "dist-tags.latest": "version",
     description: "description",
     homepage: "homepage",
   };
@@ -14,7 +15,7 @@ export default app => {
     let info;
     try {
       info = (await axios.get(
-        `https://registry.npmjs.org/${name.replace(/\//g, "%2F")}/latest`,
+        `https://registry.npmjs.org/${name.replace(/\//g, "%2F")}`,
       )).data;
     } catch (err) {
       if (err.response.status === 404) {
@@ -32,7 +33,10 @@ export default app => {
         `<b>npm</b> › <a href="${escape(link)}">${escape(info.name)}</a>`,
         "┄┄",
         ...Object.entries(META)
-          .map(([key, name]) => `<b>${escape(name)}</b>\n${escape(info[key])}`)
+          .map(
+            ([path, name]) =>
+              `<b>${escape(name)}</b>\n${escape(_.get(info, path))}`,
+          )
           .filter(Boolean),
       ].join("\n"),
       { parse_mode: "HTML", disable_web_page_preview: true },
