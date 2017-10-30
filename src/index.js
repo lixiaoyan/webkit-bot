@@ -40,7 +40,9 @@ const main = async () => {
     .map(plugin => plugin.help)
     .join("\n");
 
-  app.hears("'help", ctx => ctx.reply(help));
+  app.hears("'help", ctx =>
+    ctx.reply(help, { parse_mode: "HTML", disable_web_page_preview: true }),
+  );
 
   app.catch(err => {
     logger.error(err);
