@@ -33,10 +33,10 @@ export default app => {
         `<b>npm</b> › <a href="${escape(link)}">${escape(info.name)}</a>`,
         "┄┄",
         ...Object.entries(META)
-          .map(
-            ([path, name]) =>
-              `<b>${escape(name)}</b>\n${escape(_.get(info, path))}`,
-          )
+          .map(([path, name]) => {
+            const value = _.get(info, path);
+            return value && `<b>${escape(name)}</b>\n${escape(value)}`;
+          })
           .filter(Boolean),
       ].join("\n"),
       { parse_mode: "HTML", disable_web_page_preview: true },
