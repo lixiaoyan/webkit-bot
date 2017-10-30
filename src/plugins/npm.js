@@ -60,9 +60,10 @@ export default app => {
         "┄┄",
         ...result.objects.map(
           item =>
-            `<b>${escape(item.name)}</b>` + item.description
-              ? ` › ${escape(item.description)}`
-              : "",
+            `<b>${escape(item.package.name)}</b>` +
+            (item.package.description
+              ? ` › ${escape(item.package.description)}`
+              : ""),
         ),
       ].join("\n"),
       { parse_mode: "HTML", disable_web_page_preview: true },
