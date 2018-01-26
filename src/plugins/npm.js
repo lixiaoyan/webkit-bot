@@ -2,13 +2,30 @@ import _ from "lodash";
 import escape from "escape-html";
 import axios from "axios";
 
-export default app => {
-  const META = {
-    "dist-tags.latest": "version",
-    description: "description",
-    homepage: "homepage",
-  };
+const KiB = 1024;
+const MiB = 1024 * 1024;
 
+const formatSize = size => {
+  let number = size;
+  let suffix = "";
+  if (size >= MiB / 8) {
+    number = size / MiB;
+    suffix = "M";
+  } else if (size >= KiB / 8) {
+    number = size / KiB;
+    suffix = "k";
+  }
+  number = Math.round(number * 100) / 100;
+  return number.toString() + (suffix ? " " + suffix : "");
+};
+
+const META = {
+  "dist-tags.latest": "version",
+  description: "description",
+  homepage: "homepage",
+};
+
+export default app => {
   app.hears(/^'npm /, async ctx => {
     const name = ctx.message.text.split(/\s+/, 2)[1];
 
@@ -44,7 +61,9 @@ export default app => {
             return value && `<b>${escape(name)}</b>\n${escape(value)}`;
           })
           .filter(Boolean),
-        `<b>size</b>\n${size.size} / ${size.gzip} (gzipped)`,
+        `<b>size</b>\n${formatSize(size.size)} / ${formatSize(
+          size.gzip,
+        )} (gzipped)`,
       ].join("\n"),
       { parse_mode: "HTML", disable_web_page_preview: true },
     );
