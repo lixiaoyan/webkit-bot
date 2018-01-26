@@ -13,9 +13,15 @@ export default app => {
     const name = ctx.message.text.split(/\s+/, 2)[1];
 
     let info;
+    let size;
     try {
       info = (await axios.get(
         `https://registry.npmjs.org/${name.replace(/\//g, "%2F")}`,
+      )).data;
+      size = (await axios.get(
+        `https://bundlephobia.com/api/size?package=${encodeURIComponent(
+          info.name,
+        )}`,
       )).data;
     } catch (err) {
       if (err.response.status === 404) {
@@ -38,6 +44,7 @@ export default app => {
             return value && `<b>${escape(name)}</b>\n${escape(value)}`;
           })
           .filter(Boolean),
+        `<b></b>\n${size.size} / ${size.gzip} (gzipped)`,
       ].join("\n"),
       { parse_mode: "HTML", disable_web_page_preview: true },
     );
