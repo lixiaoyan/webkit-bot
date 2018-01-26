@@ -35,11 +35,6 @@ export default app => {
       info = (await axios.get(
         `https://registry.npmjs.org/${name.replace(/\//g, "%2F")}`,
       )).data;
-      size = (await axios.get(
-        `https://bundlephobia.com/api/size?package=${encodeURIComponent(
-          info.name,
-        )}`,
-      )).data;
     } catch (err) {
       if (err.response.status === 404) {
         await ctx.reply("Package not found.");
@@ -48,6 +43,13 @@ export default app => {
       }
       return;
     }
+    try {
+      size = (await axios.get(
+        `https://bundlephobia.com/api/size?package=${encodeURIComponent(
+          info.name,
+        )}`,
+      )).data;
+    } catch (err) {}
 
     const link = `https://www.npmjs.com/package/${info.name}`;
 
@@ -61,10 +63,13 @@ export default app => {
             return value && `<b>${escape(name)}</b>\n${escape(value)}`;
           })
           .filter(Boolean),
-        `<b>size</b>\n${formatSize(size.size)} / ${formatSize(
-          size.gzip,
-        )} (gzipped)`,
-      ].join("\n"),
+        size &&
+          `<b>size</b>\n${formatSize(size.size)} / ${formatSize(
+            size.gzip,
+          )} (gzipped)`,
+      ]
+        .filter(Boolean)
+        .join("\n"),
       { parse_mode: "HTML", disable_web_page_preview: true },
     );
   });
