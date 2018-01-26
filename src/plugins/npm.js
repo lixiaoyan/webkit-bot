@@ -15,7 +15,7 @@ const formatSize = size => {
     number = size / KiB;
     suffix = "k";
   }
-  number = Math.round(number * 100) / 100;
+  number = Math.round(number * 10) / 10;
   return number.toString() + (suffix ? " " + suffix : "");
 };
 
