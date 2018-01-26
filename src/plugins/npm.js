@@ -44,7 +44,7 @@ export default app => {
             return value && `<b>${escape(name)}</b>\n${escape(value)}`;
           })
           .filter(Boolean),
-        `<b></b>\n${size.size} / ${size.gzip} (gzipped)`,
+        `<b>size</b>\n${size.size} / ${size.gzip} (gzipped)`,
       ].join("\n"),
       { parse_mode: "HTML", disable_web_page_preview: true },
     );
