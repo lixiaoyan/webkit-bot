@@ -34,7 +34,7 @@ export default async (app, logger) => {
           height: 720,
         });
         await page.goto(url, {
-          waitUntil: "networkidle",
+          waitUntil: "networkidle2",
         });
         title = await page.title();
         screenshot = await page.screenshot({
