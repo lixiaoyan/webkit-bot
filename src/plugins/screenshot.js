@@ -42,7 +42,9 @@ export default async (app, logger) => {
           quality: 80,
         });
       } catch (err) {
-        await ctx.reply(err.message);
+        if (err.message !== "net::ERR_NAME_NOT_RESOLVED") {
+          await ctx.reply(err.message);
+        }
         throw err;
       } finally {
         await page.close();
